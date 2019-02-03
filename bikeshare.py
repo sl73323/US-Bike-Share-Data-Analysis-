@@ -1,3 +1,15 @@
+#Bike Share Data
+#Over the past decade, bicycle-sharing systems have been growing in number and popularity in cities across the world. 
+#Bicycle-sharing systems allow users to rent bicycles on a very short-term basis for a price. 
+#This allows people to borrow a bike from point A and return it at point B, though they can also return it to the same location 
+#if they'd like to just go for a ride. Regardless, each bike can serve several users per day. 
+
+#In this project, I will use data provided by Motivate, a bike share system provider for many major cities in the United States,
+# to uncover bike share usage patterns. You will compare the system usage between three large cities: 
+# Chicago, New York City, and Washington, DC.
+
+
+#Import functions to be used and creat my dataset.
 import time
 import pandas as pd
 import numpy as np
@@ -6,6 +18,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+# Create a interactive function with users and ask user to input the city, month and day to display the findings. 
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -64,6 +77,10 @@ def load_data(city, month, day):
     df =pd.read_csv(CITY_DATA[city])
     return df
 
+#Task 1: Find out the popular times of travel (i.e., occurs most often in the start time)
+	# a) most common month
+	# b) most common day of week
+	# c) most common hour of day
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -71,7 +88,7 @@ def time_stats(df):
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
    
-    # TO DO: display the most common month
+# display the most common month
     df['Start Time'] =pd.to_datetime(df["Start Time"])
     df['month'] = df['Start Time'].dt.month
     popular_month=df['month'].mode()[0]
@@ -82,13 +99,17 @@ def time_stats(df):
     popular_day=df["day_of_week"].mode()[0]
     print("most common day of week:",popular_day)
 
- # display the most common start hour
+# display the most common start hour
     df['hour']=df["Start Time"].dt.hour
     popular_hour = df['hour'].mode()[0]
     print('Most Popular Start Hour:', popular_hour)
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#Task 2: Find out most Popular stations and trip
+	# a) most common start station
+	# b) most common end station
+	# c) most common trip from start to end (i.e., most frequent combination of start station and end station)
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
@@ -110,6 +131,9 @@ def station_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+# Task 3 : Discover the trip duration
+	# a) total travel time
+	# b) average travel time
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
@@ -127,7 +151,11 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
+# Task 4: Discover user info
+	# a) counts of each user type
+	# b) counts of each gender (only available for NYC and Chicago)
+	# c) earliest, most recent, most common year of birth (only available for NYC and Chicago)
+	
 def user_stats(df, city):
     """Displays statistics on bikeshare users."""
     print('\nCalculating User Stats...\n')
